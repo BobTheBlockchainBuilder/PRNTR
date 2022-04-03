@@ -1,0 +1,16 @@
+%
+ODRILL
+G17 ; Plane selection XY
+G21 ; Unit set to MM
+G80 ; Cancels canned cycles
+G28 ; Auto Home
+M140 S55 ; Sets and maintains bed temp
+T1 M06 ; Call for toolhead
+G00 G54 X2. Y2. S2000 M03 ; Rapid movement w datum offset and spindle rpm
+G43 H1 Z1. ; H1 offset length
+
+G00 Z1. ; offset length above the datum
+M5 ; spindle off 
+G90 G28 X0. Y0. Z0. ; Home
+M30 ; Program stop
+%
