@@ -12,6 +12,7 @@ Setup: What you need download & do:
 	*	install lxml
 	*	install urllib.request
 	*	download and install mandoline py
+	*	Unzip packages file
 	*	(rest of the instructions are in PRNTR.py)
 
 
