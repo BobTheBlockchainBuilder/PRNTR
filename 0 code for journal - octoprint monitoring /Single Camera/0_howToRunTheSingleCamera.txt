@@ -1,0 +1,12 @@
+% Author: Siranee Nuchitprasitchai
+% Last updated: December 6,2016 
+
+1 Install VLFeat from http://www.vlfeat.org/
+2 save stl files in input_stlfile floder
+3 run mainforSTLtools.m to get STLImage files and save them into input_STLImage floder
+  for every N layers that user would like to detect an error
+4 follow camera calibration from https://www.mathworks.com/help/releases/R2013b/vision/ug/find-camera-parameters-with-the-camera-calibrator.html
+5 take image from camera for every N layers that user would like to detect an error
+  into input_Cameraimage folder
+6 Edit parameter, file name, or folder name in mainSingleCamera.m 
+7 run mainSingleCamera.m to detect shape error

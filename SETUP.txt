@@ -1,6 +1,6 @@
 Setup: What you need download & do:
-	*	install python 3
-	*	install opencv
+	*	install python3
+	*	install opencv-python
 	*	install numpy
 	*	install PIL
 	*	install Pillow (PIL Fork 9.0.0) before use - python imaging library
@@ -8,43 +8,59 @@ Setup: What you need download & do:
 	*	install shutil
 	*	install scikit-image (using python 3)
 	*	install seaborn
-	*	install Enum  
+	*	install Enum 
 	*	install lxml
 	*	install urllib.request
 	*	download and install mandoline py
-	*	Unzip packages file
+	*	Unzip packages folder if packages folder doesnt exist
 	*	(rest of the instructions are in PRNTR.py)
+	*	install fswebcam
 
 
-Theoretical Explaination:	
+(outdated) Theoretical Explaination:	
 							The software system is run off a raspberry pi connected to the duet2 mainboard of the device and a camera installed on the top. This raspberry pi is preset with all the python packages/programs required to run the system.  
 								The system begins with an STL file containing the model of the part to be printed. This file is stored in the exact location as the other python files (inside the codes folder). The hybrid manufacturing machine software is then launched by setting the directory to the code file and launching PRNTR.py, which will immediately ask for user input, asking what the name of the STL file is that you want to manufacture. This will then launch the slicer and slice the file to produce the g-code according to the parameters that have been preset into the slicer. After which, the layer splitter will activate and take the g-code file and split it up into files naming each one by the layer it is in; during this process, the code also comments out the layer number in the file that has been added so as not to affect the machining code, an example can be seen in the figure X below. The G-code is then made into an image for each layer and saved to be used when required. An example of the first layer of an octopus print generated from this g-code reader can be seen in figure X below.
 									Once the g-code is made, the first five layers will be sent to the printer to begin the additive operation. Once five layers are printed, the homing code will be triggered, where it can also change tools if need be. The tool change will be decided using the data acquisition system. The camera will be activated when the print head is far enough away from the print, and image capture will be taken. This image capture will then run through an image manipulation script that has been designed to reduce as much noise as possible and increase the quality as much as possible. The manipulated file will then have edge detection run on it, and the “Edgey” file will be used to compare the actual print to the ‘ideal’ print. The comparison files of the additive process will then be saved and displayed on the screen; it will show a black and white image used to segment the correct parts and the parts which are not. The additive comparison files will then be used to test how much error there is on a percentage scale by comparing the black and white pixel numbers; if there is less than a 5% error, then it will proceed to the next set of layers that need to be printed with additive. If the error is more than 5%, then the comparison file will be implemented to the CAM operation, which will produce a subtractive toolpath according to the black/white regions; this toolpath will then be sent to the printer, where the subtractive operation will occur. After the subtractive operation is complete, the tool head will head home and change tools, which is when the subsequent five layers of the additive process will be sent to the printer for it to be worked on. When the head is homing, a check will run to see if the head is clear and not obstructing the view of the print. If this parameter is valid, the data acquisition system will be activated again, running until a subtractive operation comparison image is made. The image is then sent to the screen to be displayed, the before n. This loop will keep occurring up until the entire print has been completed, which will then ask the user if they are done with the print and would like to delete the files or not. During this entire process, verifications will be made when files are required to be used after they are made; this is to make sure the program runs correctly in the proper order and not to bring up problems during execution—a visual representation of this explanation in the software flowchart. 
 
 
 Note for pi users:
-	everytime writing/running on raspberry pi, "python" and "pip" cant be used. Use this instead: "python3" or "pip3" because the default is to use python 2 on the pi
-	https://github.com/AndyEveritt/ASMBL	
-	'ffplay /dev/video0' is the command to start video playback from webcam on raspberry pi:		https://stackoverflow.com/questions/63748941/how-to-take-video-on-a-raspberry-pi-with-a-usb-webcam	
-	useful installing/Uninstalling commands:
-		python3 -m pip install --upgrade pip
-		python3 -m pip install --upgrade Pillow
-		sudo apt-get install
-		when you have file: sudo apt-get install python3-pandas
-		sudo apt-get remove python3-numpy
-		# Update pip
-			python -m pip install -U pip
-		# Install scikit-image
-			python -m pip install -U scikit-image
-			https://scikit-image.org/docs/dev/install.html#install-via-pip
+	*	everytime writing/running on raspberry pi, "python" and "pip" cant be used. Use this instead: "python3" or "pip3" because the default is to use python 2 on the pi
+	*	https://github.com/AndyEveritt/ASMBL	
+	*	'ffplay /dev/video0' is the command to start video playback from webcam on raspberry pi:		https://stackoverflow.com/questions/63748941/how-to-take-video-on-a-raspberry-pi-with-a-usb-webcam	
+	*	useful installing/Uninstalling commands:
+			--> $ python3 -m pip install --upgrade lxml
+			--> $ python3 -m pip install --upgrade pip
+			--> $ python3 -m pip install --upgrade Pillow
+			--> $ sudo apt-get install
+			--> $ when you have file: sudo apt-get install python3-pandas
+			--> $ sudo apt-get remove python3-numpy
+			--> $ sudo apt-get install python3-pip 
+			# Update pip
+				--> $ python3 -m pip install -U pip
+			# Install scikit-image
+				--> $ python3 -m pip install -U scikit-image
+				https://scikit-image.org/docs/dev/install.html#install-via-pip
+
+	*	Virtual Environment:
+			opening Virtuial environment on Pi:
+				cd design
+				source ./venv/bin/activate
+					cd PRNTR/code
+					python3 PRNTR.py
+
+		
 			
 
 to do:
-	[ ] comparison - implement image comparison for all layers: on a loop system after each camera capture
+	
 	[ ]	calibration - Orientation, flattening image, brightness, contrast, cropping?   
 	[ ] calibration - edge detection | remove noise by messing with canny edge parameters in edge.py
+	
+	[ ] comparison - implement image comparison for all layers: on a loop system after each camera capture
+	[ ]	comparison - set up image show to show on screen; the before and after images next to each other, with the layer number on the top
+
+
 	[ ]	Madoline slicer - parameters setup
-	[ ]	screen - set up image show to show the before and after images next to each other, with the layer number on the top
 	[ ]	PRNTR.py - subprocess code to check if the head is clear of the print so that camera capture can occur	
 	[ ]	Layer - using python, find a way to see what the layer number is that is being printed at that specific moment in time
 	[ ]	PRNTR.py - create a loop so that system runs in 5 layer increments up until the print has been finished

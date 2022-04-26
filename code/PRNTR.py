@@ -3,8 +3,8 @@ This is for running the PRNTR's complete operation:
 	What to do
 		Place .stl file in the code folder
 		Check path
-		Check the correct camera operation is being used, depending on using computer or pi
-		Check camera.py --> if the cv2.videocapture is 0 then its builtin webcam, if its 1 then its the connected camera
+		Check the correct camera operation is being used, if using computer use camera.py, if using py use os.systemm(...)
+		Check camera.py if using computer --> if the cv2.videocapture is 0 then its builtin webcam, if its 1 then its the connected camera
 		Check range values for number of layers --> change in bottomrange & toprange variables below
 		Check that 'PRNTR/files/Layer/ideal/image_name.jpg' exists
 		Check that 'PRNTR/files/Layer/diffs/diff.jpg' exists
@@ -26,7 +26,7 @@ location = path
 #Range values for the layers in the print used in:	LayerSplitter.py & Image_maker.py
 bottomrange = int(0)
 bottom_range = bottomrange
-toprange = int(100)
+toprange = int(101)
 top_range = toprange
 
 #currentlayernumber = LayerNumber.numberiton #not working properly
@@ -91,7 +91,7 @@ def main():
 			os.system('python Image_manipulation.py')
 
 			#	Operation to verify Image_manipulation.py has occured 
-			if os.path.exists('{}/files/new_image.jpg'.format(location)):
+			if os.path.exists('{}/files/new_test_resize.jpg'.format(location)):
 				#	Operation to run edge.py
 				os.system('python edge.py')
 
@@ -106,7 +106,7 @@ def main():
 					print('There is an error in the ImageComparison file')
 					
 			else:
-				print('There is an error in the edge file')
+				print('There is an error in the edge file, or the file names')
 
 		else:
 			print("There is an error in the Image_manipulation file")
@@ -127,7 +127,7 @@ def main():
 		print('Time to run PRNTR code:', end - start, "seconds")
 		print("")
 
-
+	#	FLO needs to be fixed
 	#	Send 5 Layers to printer then CCO 
 	def FLO(): # FLO - five layer operation
 		num = currentlayernumber

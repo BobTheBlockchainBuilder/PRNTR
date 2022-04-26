@@ -15,7 +15,7 @@ def ED():
 	#Canny edge detector
 
 	#load birds image
-	image = cv.imread("{}/files/new_test_size.jpg".format(path1))
+	image = cv.imread("{}/files/new_test_resize.jpg".format(path1))
 
 	#convert to gray image
 	gray_image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
@@ -41,7 +41,7 @@ def ED():
 	#canny_edges.save('Canny_Edges.jpg')
 
 	#dont put 0 because the 'program' wont stop running and you will be stuck in a loop and have to TERMINATE operation.
-	cv.waitKey(5) 
+	cv.waitKey(1) 
 	
 	#cv.imwrite('sobel_x_edges', sobel_x_edges)
 	#cv.imwrite('sobel_y_edges', sobel_y_edges)

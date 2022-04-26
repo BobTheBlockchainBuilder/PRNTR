@@ -1,0 +1,8 @@
+% Author: Siranee Nuchitprasitchai
+% Last updated: December 6,2016 
+
+1 Install VLFeat from http://www.vlfeat.org/
+2 follow camera calibration from https://www.mathworks.com/help/releases/R2013b/vision/ug/find-camera-parameters-with-the-camera-calibrator.html
+3 take two images from two camera 
+4 Edit parameter, file name, or folder name in mainTwoCamera.m 
+5 run mainTwoCamera.m to reconstruct 3-D image

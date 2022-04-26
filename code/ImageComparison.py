@@ -14,7 +14,7 @@ print(CLNpath) # passed on to imageB
 
 def IC():
 	
-	# inverting the imgae that is camptured and is being used as imageA
+	# inverting the image that is camptured and is being used as imageA
 	im = Image.open('{}/files/Edgey.jpg'.format(path1)).convert('RGB')
 	im_invert = ImageOps.invert(im)
 	im_invert.save('{}/files/inverts.jpg'.format(path1))
@@ -53,7 +53,7 @@ def IC():
 	# show the output images
 	#cv2.imshow("Original", imageA)
 	#cv2.imshow("Modified", imageB)
-	cv2.imwrite('{}/files/diffs/diff.jpg'.format(path1), diff) 
+	cv2.imwrite('{}/files/Layer/diffs/diff.jpg'.format(path1), diff) 
 	#cv2.imshow("Thresh", thresh)
 	cv2.waitKey(1)
 

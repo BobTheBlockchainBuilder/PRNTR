@@ -7,7 +7,7 @@ import PRNTR
 path1 = PRNTR.location
 
 def IM():
-	image = Image.open('{}/files/capture.JPG'.format(path1)) 
+	image = Image.open('{}/files/capture.jpg'.format(path1)) 
 	#image.show()
 
 	print(' ')
